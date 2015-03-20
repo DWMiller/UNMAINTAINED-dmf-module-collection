@@ -1,0 +1,7 @@
+{
+    "login": "login",
+    "register": "register",
+    "email": "email",
+    "password": "password",
+    "logout": "logout",
+}
