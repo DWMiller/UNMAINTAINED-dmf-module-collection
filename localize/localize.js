@@ -8,16 +8,20 @@ dmf.createModule('localize', function(c, config) {
         }
     };
 
-    var elements;
+    var elements; //to do - add memory of elements so finding them all is not needed for each translation
 
     var p_languages = {}; // will contain lazy loaded language data
 
-    var language; // string representing key of currently active language (default 'en' for english)
-
+    // var language; // string representing key of currently active language (default 'en' for english)
+    // c.data.settings.language;
     /************************** Module initialization *************************/
 
     function initialize(scope) {
-        language = config.default_language;
+        if (!c.settings.language) {
+            c.settings.language = config.default_language
+        }
+
+        // language = config.default_language;
         getLanguage();
     }
 
@@ -26,7 +30,7 @@ dmf.createModule('localize', function(c, config) {
     }
 
     function changeLanguage(data) {
-        language = data.language;
+        c.settings.language = data.language;
         getLanguage();
     }
 
@@ -40,9 +44,9 @@ dmf.createModule('localize', function(c, config) {
         // If language is not loaded, retrieve it then update.
         // If language is already loaded, update only.
 
-        if (!p_languages[language]) {
-            $.getJSON(config.path + language + config.ext).done(function(response) {
-                p_languages[language] = response;
+        if (!p_languages[c.settings.language]) {
+            $.getJSON(config.path + c.settings.language + config.ext).done(function(response) {
+                p_languages[c.settings.language] = response;
                 updateLanguage();
             });
         } else {
@@ -53,10 +57,10 @@ dmf.createModule('localize', function(c, config) {
     /************************** General functions *****************************/
 
     function updateLanguage() {
-        console.log('Language changed to ' + language);
+        console.log('Language changed to ' + c.settings.language);
 
         c.extend(c.data, {
-            language: p_languages[language]
+            language: p_languages[c.settings.language]
         });
 
         translate();
@@ -107,9 +111,11 @@ dmf.createModule('localize', function(c, config) {
      * @return {[type]}         The updated element
      */
     function localizeElement(element, key) {
-        element.setAttribute('data-localize', key);
-        translateElement(element);
-        return element;
+        if (element) {
+            element.setAttribute('data-localize', key);
+            translateElement(element);
+            return element;
+        }
     }
 
     /************************** Function Mapping **************************/
