@@ -17,8 +17,8 @@ dmf.createModule('localize', function(c, config) {
     /************************** Module initialization *************************/
 
     function initialize(scope) {
-        if (!c.settings.language) {
-            c.settings.language = config.default_language
+        if (!c.data.settings.language) {
+            c.data.settings.language = config.default_language
         }
 
         // language = config.default_language;
@@ -30,8 +30,9 @@ dmf.createModule('localize', function(c, config) {
     }
 
     function changeLanguage(data) {
-        c.settings.language = data.language;
+        c.data.settings.language = data.language;
         getLanguage();
+        c.notify('settings-changed');
     }
 
     /************************** Framework Listeners ***************************/
@@ -44,9 +45,9 @@ dmf.createModule('localize', function(c, config) {
         // If language is not loaded, retrieve it then update.
         // If language is already loaded, update only.
 
-        if (!p_languages[c.settings.language]) {
-            $.getJSON(config.path + c.settings.language + config.ext).done(function(response) {
-                p_languages[c.settings.language] = response;
+        if (!p_languages[c.data.settings.language]) {
+            $.getJSON(config.path + c.data.settings.language + config.ext).done(function(response) {
+                p_languages[c.data.settings.language] = response;
                 updateLanguage();
             });
         } else {
@@ -57,10 +58,10 @@ dmf.createModule('localize', function(c, config) {
     /************************** General functions *****************************/
 
     function updateLanguage() {
-        console.log('Language changed to ' + c.settings.language);
+        console.log('Language changed to ' + c.data.settings.language);
 
         c.extend(c.data, {
-            language: p_languages[c.settings.language]
+            language: p_languages[c.data.settings.language]
         });
 
         translate();
