@@ -1,25 +1,9 @@
 dmf.createModule('localize', function(c, config) {
     'use strict';
 
-        // Usage exampe for other modules 
-        /**
-         * here for testing purposes temporarily
-         * @param  {[type]} lang [description]
-         * @return {[type]}      [description]
-         */
-        // changeLanguage: function(lang) {
-        //     this.notify({
-        //         type: 'language-change',
-        //         data: {
-        //             language: lang
-        //         }
-        //     });
-        // },
-
-
     var properties = {
         id: 'localize',
-        listeners:{
+        listeners: {
             'language-change': changeLanguage
         }
     };
@@ -30,8 +14,7 @@ dmf.createModule('localize', function(c, config) {
 
     var language; // string representing key of currently active language (default 'en' for english)
 
-    // var p_data = {}; //will contain localized language data for the currently selected language only
-
+    /************************** Module initialization *************************/
 
     function initialize(scope) {
         language = config.default_language;
@@ -46,6 +29,8 @@ dmf.createModule('localize', function(c, config) {
         language = data.language;
         getLanguage();
     }
+
+    /************************** Framework Listeners ***************************/
 
     /**
      * Retrieve language data for specific language
@@ -65,6 +50,8 @@ dmf.createModule('localize', function(c, config) {
         }
     }
 
+    /************************** General functions *****************************/
+
     function updateLanguage() {
         console.log('Language changed to ' + language);
 
@@ -80,14 +67,14 @@ dmf.createModule('localize', function(c, config) {
      * @return {[type]} [description]
      */
     function translate() {
-        var elements = document.querySelectorAll('.localize');
+        var elements = document.querySelectorAll('[data-localize]');
 
         for (var i = 0; i < elements.length; i++) {
-            localizeElement(elements[i]);
+            translateElement(elements[i]);
         }
     }
 
-    function localizeElement(element) {
+    function translateElement(element) {
         var key = element.getAttribute("data-localize");
 
         var text = getLocalizedText(key);
@@ -112,6 +99,24 @@ dmf.createModule('localize', function(c, config) {
             return false;
         }
     }
+
+    /**
+     * Wires up an element for localization
+     * @param  {[type]} element The element to localize
+     * @param  {[type]} key     The language key referencing the localized string to use on this element
+     * @return {[type]}         The updated element
+     */
+    function localizeElement(element, key) {
+        element.setAttribute('data-localize', key);
+        translateElement(element);
+        return element;
+    }
+
+    /************************** Function Mapping **************************/
+    dmf.fn.localize = {
+        changeLanguage: changeLanguage,
+        localizeElement: localizeElement,
+    };
 
     return {
         properties: properties,
