@@ -2,7 +2,6 @@ dmf.createModule('local-storage-settings', function(c, config) {
     'use strict';
 
     var properties = {
-        id: 'local-storage-settings',
         listeners: {
             'settings-changed': settingsChanged
         }

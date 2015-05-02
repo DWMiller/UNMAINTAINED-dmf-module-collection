@@ -1,6 +1,6 @@
 dmf.dom = {
     find: function(selector, context) {
-        var ret = {};
+        var ret;
 
         if (context) {
             ret = context.querySelector(selector);
@@ -10,34 +10,26 @@ dmf.dom = {
         return ret;
     },
     hide: function(element) {
-        dmf.dom.addClass(element, 'hidden');
-        dmf.dom.removeClass(element, 'visible');
+        this.addClass(element, 'hidden');
+        this.removeClass(element, 'visible');
     },
     show: function(element) {
-        dmf.dom.addClass(element, 'visible');
-        dmf.dom.removeClass(element, 'hidden');
+        this.addClass(element, 'visible');
+        this.removeClass(element, 'hidden');
     },
     listen: function(element, evt, fn) {
-        if (element && evt) {
-            if (typeof evt === 'function') {
-                fn = evt;
-                evt = 'click';
-            }
-            element.addEventListener(evt, fn);
-        } else {
-            // log wrong arguments
+        if (typeof evt === 'function') {
+            fn = evt;
+            evt = 'click';
         }
+        element.addEventListener(evt, fn);
     },
     ignore: function(element, evt, fn) {
-        if (element && evt) {
-            if (typeof evt === 'function') {
-                fn = evt;
-                evt = 'click';
-            }
-            element.removeEventListener(evt, fn);
-        } else {
-            // log wrong arguments
+        if (typeof evt === 'function') {
+            fn = evt;
+            evt = 'click';
         }
+        element.removeEventListener(evt, fn);
     },
     // http://jaketrent.com/post/addremove-classes-raw-javascript/
     hasClass: function(ele, cls) {
@@ -47,7 +39,6 @@ dmf.dom = {
     addClass: function(ele, cls) {
         if (!hasClass(ele, cls)) ele.className += " " + cls;
     },
-
     removeClass: function(ele, cls) {
         if (hasClass(ele, cls)) {
             var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');

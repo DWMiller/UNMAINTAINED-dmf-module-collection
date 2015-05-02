@@ -2,18 +2,14 @@ dmf.createModule('localize', function(c, config) {
     'use strict';
 
     var properties = {
-        id: 'localize',
         listeners: {
             'language-change': changeLanguage
         }
     };
 
     var elements; //to do - add memory of elements so finding them all is not needed for each translation
-
     var p_languages = {}; // will contain lazy loaded language data
 
-    // var language; // string representing key of currently active language (default 'en' for english)
-    // c.data.settings.language;
     /************************** Module initialization *************************/
 
     function initialize(scope) {
@@ -21,7 +17,6 @@ dmf.createModule('localize', function(c, config) {
             c.data.settings.language = config.default_language
         }
 
-        // language = config.default_language;
         getLanguage();
     }
 

@@ -2,7 +2,6 @@ dmf.createModule('server', function(c, config) {
     'use strict';
 
     var properties = {
-        id: 'server',
         listeners: {
             'server-request': request,
             'server-post': post,
