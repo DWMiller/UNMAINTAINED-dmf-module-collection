@@ -37,10 +37,10 @@ dmf.dom = {
     },
 
     addClass: function(ele, cls) {
-        if (!hasClass(ele, cls)) ele.className += " " + cls;
+        if (!this.hasClass(ele, cls)) ele.className += " " + cls;
     },
     removeClass: function(ele, cls) {
-        if (hasClass(ele, cls)) {
+        if (this.hasClass(ele, cls)) {
             var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
             ele.className = ele.className.replace(reg, ' ');
         }
