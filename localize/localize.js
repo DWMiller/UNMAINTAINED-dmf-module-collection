@@ -55,7 +55,7 @@ dmf.createModule('localize', function(c, config) {
     function updateLanguage() {
         console.log('Language changed to ' + c.data.settings.language);
 
-        c.extend(c.data, {
+        c.fn.extend(c.data, {
             language: p_languages[c.data.settings.language]
         });
 
