@@ -1,21 +1,7 @@
 dmf.createModule('server', function(c, config) {
     'use strict';
 
-    var properties = {
-        listeners: {
-            'server-request': request,
-            'server-post': post,
-            'session-set': setSession,
-            'session-clear': clearSession
-        }
-    };
-
     var session;
-
-    // function initialize(scope) {
-    // }
-
-    // function destroy() {}
 
     function request() {
         //TODO - for GET requests
@@ -51,15 +37,15 @@ dmf.createModule('server', function(c, config) {
                 c.notify({
                     type: 'server-response',
                     data: result
-                });   
+                });
             })
             .fail(function(fail) {
                 //console.log("error");
                 c.notify({
                     type: 'server-fail',
                     data: fail
-                });                
-                
+                });
+
             })
             .always(function(result) {
                 // console.log("complete");
@@ -75,9 +61,12 @@ dmf.createModule('server', function(c, config) {
     }
 
     return {
-        properties: properties,
-        // initialize: initialize,
-        // destroy: destroy
+        listeners: {
+            'server-request': request,
+            'server-post': post,
+            'session-set': setSession,
+            'session-clear': clearSession
+        }
     };
 
 });

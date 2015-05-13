@@ -1,12 +1,6 @@
 dmf.createModule('localize', function(c, config) {
     'use strict';
 
-    var properties = {
-        listeners: {
-            'language-change': changeLanguage
-        }
-    };
-
     var elements; //to do - add memory of elements so finding them all is not needed for each translation
     var p_languages = {}; // will contain lazy loaded language data
 
@@ -121,8 +115,10 @@ dmf.createModule('localize', function(c, config) {
     };
 
     return {
-        properties: properties,
-        initialize: initialize,
-        destroy: destroy,
+        start: initialize,
+        stop: destroy,
+        listeners: {
+            'language-change': changeLanguage
+        }
     };
 });
