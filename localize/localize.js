@@ -1,4 +1,4 @@
-dmf.createModule('localize', function(c, config) {
+dmf.registerModule('localize', function(c, config) {
     'use strict';
 
     var elements; //to do - add memory of elements so finding them all is not needed for each translation

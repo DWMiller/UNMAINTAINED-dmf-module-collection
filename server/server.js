@@ -1,4 +1,4 @@
-dmf.createModule('server', function(c, config) {
+dmf.registerModule('server', function(c, config) {
     'use strict';
 
     var session;

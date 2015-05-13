@@ -1,12 +1,5 @@
-dmf.createModule('local-storage-settings', function(c, config) {
+dmf.registerModule('local-storage-settings', function(c, config) {
     'use strict';
-
-    var properties = {
-        start: initialize,
-        listeners: {
-            'settings-changed': settingsChanged
-        }
-    };
 
     /******************************* MODULE INITIALIZATION *******************/
 
@@ -37,5 +30,10 @@ dmf.createModule('local-storage-settings', function(c, config) {
         localStorage.setItem('settings', JSON.stringify(c.data.settings));
     }
 
-    return properties;
+    return {
+        start: initialize,
+        listeners: {
+            'settings-changed': settingsChanged
+        }
+    }
 });

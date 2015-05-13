@@ -1,4 +1,4 @@
-dmf.createModule('dmf-logger', function(c) {
+dmf.registerModule('dmf-logger', function(c) {
     'use strict';
 
     function log(data) {
