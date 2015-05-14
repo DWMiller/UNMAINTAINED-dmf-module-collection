@@ -12,6 +12,8 @@ dmf.registerModule('localize', function(c, config) {
             selectedLanguage = config.default_language
         }
 
+        c.data.language = {};
+
         getLanguage();
     }
 
@@ -19,8 +21,8 @@ dmf.registerModule('localize', function(c, config) {
         elements = {};
     }
 
-    function changeLanguage(data) {
-        selectedLanguage = data.language;
+    function changeLanguage(language) {
+        selectedLanguage = language;
         getLanguage();
         c.notify('settings-changed');
     }
