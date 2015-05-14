@@ -4,11 +4,12 @@ dmf.registerModule('localize', function(c, config) {
     var elements; //to do - add memory of elements so finding them all is not needed for each translation
     var p_languages = {}; // will contain lazy loaded language data
 
+    var selectedLanguage = false;
     /************************** Module initialization *************************/
 
     function initialize(scope) {
-        if (!c.data.settings.language) {
-            c.data.settings.language = config.default_language
+        if (!selectedLanguage) {
+            selectedLanguage = config.default_language
         }
 
         getLanguage();
@@ -19,7 +20,7 @@ dmf.registerModule('localize', function(c, config) {
     }
 
     function changeLanguage(data) {
-        c.data.settings.language = data.language;
+        selectedLanguage = data.language;
         getLanguage();
         c.notify('settings-changed');
     }
@@ -34,9 +35,9 @@ dmf.registerModule('localize', function(c, config) {
         // If language is not loaded, retrieve it then update.
         // If language is already loaded, update only.
 
-        if (!p_languages[c.data.settings.language]) {
-            $.getJSON(config.path + c.data.settings.language + config.ext).done(function(response) {
-                p_languages[c.data.settings.language] = response;
+        if (!p_languages[selectedLanguage]) {
+            $.getJSON(config.path + selectedLanguage + config.ext).done(function(response) {
+                p_languages[selectedLanguage] = response;
                 updateLanguage();
             });
         } else {
@@ -47,11 +48,9 @@ dmf.registerModule('localize', function(c, config) {
     /************************** General functions *****************************/
 
     function updateLanguage() {
-        console.log('Language changed to ' + c.data.settings.language);
+        console.log('Language changed to ' + selectedLanguage);
 
-        c.fn.extend(c.data, {
-            language: p_languages[c.data.settings.language]
-        });
+        c.fn.extend(c.data.language, p_languages[selectedLanguage]);
 
         translate();
     }
