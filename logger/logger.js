@@ -2,9 +2,9 @@ dmf.registerModule('dmf-logger', function(c) {
     'use strict';
 
     function log(data) {
-        if (!c.settings.debug) {
-            return;
-        }
+        // if (!c.settings.debug) {
+        //     return;
+        // }
 
         var messages = data.msgs;
         var severity = data.severity;
@@ -21,9 +21,7 @@ dmf.registerModule('dmf-logger', function(c) {
 
     /***************** General Functions ****************************/
 
-
     return {
-        start: initialize,
         listeners: {
             'log': log
         }
