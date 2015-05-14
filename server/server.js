@@ -8,7 +8,10 @@ dmf.registerModule('server', function(c, config) {
     }
 
     function post(data) {
-        c.log(1, ['REQUEST', data]);
+        c.notify('log', {
+            severity: 1
+            msgs: ['REQUEST', data]
+        })
 
         if (session) {
             data.session = session;
@@ -25,7 +28,11 @@ dmf.registerModule('server', function(c, config) {
 
         return $.ajax(settings)
             .done(function(result) {
-                c.log(1, ['RESPONSE', result]);
+
+                c.notify('log', {
+                    severity: 1
+                    msgs: ['RESPONSE', result]
+                })
 
                 for (var obj in result) {
                     c.notify({
