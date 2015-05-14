@@ -9,7 +9,7 @@ dmf.registerModule('server', function(c, config) {
 
     function post(data) {
         c.notify('log', {
-            severity: 1
+            severity: 1,
             msgs: ['REQUEST', data]
         })
 
@@ -30,7 +30,7 @@ dmf.registerModule('server', function(c, config) {
             .done(function(result) {
 
                 c.notify('log', {
-                    severity: 1
+                    severity: 1,
                     msgs: ['RESPONSE', result]
                 })
 
