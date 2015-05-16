@@ -10,7 +10,7 @@ dmf.registerModule('dmf-logger', function(c) {
         var severity = data.severity;
 
         // If message is not an array, make it an array so we can traverse it
-        if (!c.fn.is_arr(messages)) {
+        if (!c.fn.is('[object Array]', messages)) {
             messages = [messages];
         }
 
