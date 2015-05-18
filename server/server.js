@@ -8,7 +8,7 @@ dmf.registerModule('server', function(c, config) {
     }
 
     function post(data) {
-        c.notify('log', {
+        c.announce('log', {
             severity: 1,
             msgs: ['REQUEST', data]
         })
@@ -29,26 +29,26 @@ dmf.registerModule('server', function(c, config) {
         return $.ajax(settings)
             .done(function(result) {
 
-                c.notify('log', {
+                c.announce('log', {
                     severity: 1,
                     msgs: ['RESPONSE', result]
                 })
 
                 for (var obj in result) {
-                    c.notify({
+                    c.announce({
                         type: obj,
                         data: result[obj]
                     });
                 }
 
-                c.notify({
+                c.announce({
                     type: 'server-response',
                     data: result
                 });
             })
             .fail(function(fail) {
                 //console.log("error");
-                c.notify({
+                c.announce({
                     type: 'server-fail',
                     data: fail
                 });

@@ -23,7 +23,7 @@ dmf.registerModule('local-storage-settings', function(c, config) {
             c.data.settings = settings;
         }
 
-        c.notify('settings-loaded');
+        c.announce('settings-loaded');
     }
 
     function saveSettings() {

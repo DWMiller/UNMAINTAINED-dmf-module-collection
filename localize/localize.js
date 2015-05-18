@@ -7,7 +7,7 @@ dmf.registerModule('localize', function(c, config) {
     var selectedLanguage = false;
     /************************** Module initialization *************************/
 
-    function initialize(scope) {
+    function initialize() {
         if (!selectedLanguage) {
             selectedLanguage = config.default_language
         }
@@ -24,7 +24,7 @@ dmf.registerModule('localize', function(c, config) {
     function changeLanguage(language) {
         selectedLanguage = language;
         getLanguage();
-        c.notify('settings-changed');
+        c.announce('settings-changed');
     }
 
     /************************** Framework Listeners ***************************/
