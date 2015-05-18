@@ -1,11 +1,11 @@
 dmf.registerModule('dmf-logger', function(c) {
     'use strict';
 
-    function log(data) {
-        // if (!c.settings.debug) {
-        //     return;
-        // }
+    /*************************************************************************** 
+     ****************************  Framework Listeners *************************
+     **************************************************************************/
 
+    function log(data) {
         var messages = data.msgs;
         var severity = data.severity;
 
@@ -15,15 +15,39 @@ dmf.registerModule('dmf-logger', function(c) {
         }
 
         for (var i = 0; i < messages.length; i++) {
+            print(messages[i], severity);
+        }
+    }
+
+    function moduleStarted(data) {
+        print(data, 1);
+    }
+
+    function moduleStopped(data) {
+        print(data, 1);
+    }
+
+    /*************************************************************************** 
+     **************************** Private Methods ******************************
+     **************************************************************************/
+
+    function print(msg, severity) {
+
+        for (var i = 0; i < messages.length; i++) {
             console[(severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error'](JSON.stringify(messages[i], null, 4));
         }
     }
 
-    /***************** General Functions ****************************/
+    /*************************************************************************** 
+     **************************** End Private Methods **************************
+     **************************************************************************/
 
+    /* Send setup data back to framework */
     return {
         listeners: {
-            'log': log
+            'log': log,
+            'module-started': moduleStarted,
+            'module-stopped': moduleStopped
         }
     };
 });
