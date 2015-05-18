@@ -32,10 +32,7 @@ dmf.registerModule('dmf-logger', function(c) {
      **************************************************************************/
 
     function print(msg, severity) {
-
-        for (var i = 0; i < messages.length; i++) {
-            console[(severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error'](JSON.stringify(messages[i], null, 4));
-        }
+            console[(severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error'](JSON.stringify(msg, null, 4));
     }
 
     /*************************************************************************** 
