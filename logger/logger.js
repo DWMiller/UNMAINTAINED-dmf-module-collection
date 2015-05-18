@@ -20,11 +20,11 @@ dmf.registerModule('dmf-logger', function(c) {
     }
 
     function moduleStarted(data) {
-        print(data, 1);
+        print(data + ' module started', 1);
     }
 
     function moduleStopped(data) {
-        print(data, 1);
+        print(data + ' module stopped', 1);
     }
 
     /*************************************************************************** 
@@ -32,7 +32,7 @@ dmf.registerModule('dmf-logger', function(c) {
      **************************************************************************/
 
     function print(msg, severity) {
-            console[(severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error'](JSON.stringify(msg, null, 4));
+        console[(severity === 1) ? 'log' : (severity === 2) ? 'warn' : 'error'](JSON.stringify(msg, null, 4));
     }
 
     /*************************************************************************** 
